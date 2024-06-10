@@ -30,13 +30,13 @@ class Transaction():
         
     @property
     def amount(self):
-        self._amount
+        return self._amount
     @amount.setter
     def amount(self, value):
         if isinstance(value, int):
             self._amount = value
         else:
-            raise ValueError("Transaction Amount should be a integer")
+            raise ValueError("Transaction Amount should be an integer")
         
     @property
     def date(self):
@@ -67,7 +67,7 @@ class Transaction():
             CREATE TABLE IF NOT EXISTS transactions (
             id INTEGER PRIMARY KEY,
             type TEXT NOT NULL,
-            amount INT NOT NULL,
+            amount INTEGER,
             date DATE NOT NULL,
             account_id INTEGER,
             FOREIGN KEY (account_id) REFERENCES account(id))
@@ -92,7 +92,6 @@ class Transaction():
         """
         CURSOR.execute(sql, (self.type, self.amount, self.date, self.account_id))
         CONN.commit()
-
         self.id = CURSOR.lastrowid
         type(self).all[self.id] = self
 

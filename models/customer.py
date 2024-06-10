@@ -40,13 +40,14 @@ class Customer():
 
     @property
     def phone_number(self):
-        self._phone_number
+        return self._phone_number
     @phone_number.setter
     def phone_number(self, value):
-        if isinstance(value, int):
-            self._phone_number = value
-        else:
-            raise ValueError('Phone Number should be an integer')
+        try:
+            phone_number_int = int(value)
+            self._phone_number = phone_number_int
+        except ValueError:
+            raise ValueError('Phone Number should be an integer') from None
 
 
     @property
@@ -68,7 +69,7 @@ class Customer():
             id INTEGER PRIMARY KEY,
             first_name VARCHAR(20) NOT NULL,
             last_name VARCHAR(20) NOT NULL,
-            phone_number INTEGER NOT NULL,
+            phone_number INTEGER,
             email VARCHAR(35) NOT NULL
             )
         """
