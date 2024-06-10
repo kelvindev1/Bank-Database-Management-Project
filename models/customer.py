@@ -136,7 +136,7 @@ class Customer():
             customer.phone_number = row[3]
             customer.email = row[4]
         else:
-            customer = cls(row[1], row[2]), row[3], row[4]
+            customer = cls(row[1], row[2], row[3], row[4])
             customer.id = row[0]
             cls.all[customer.id] = customer
         return customer
@@ -164,13 +164,13 @@ class Customer():
 
 
     @classmethod
-    def find_by_name(cls, name):
+    def find_by_name(cls, first_name, last_name):
         sql = """
             SELECT *
             FROM customers
-            WHERE name = ?
+            WHERE first_name = ? , last_name = ?
         """
-        row = CURSOR.execute(sql, (name,)).fetchone()
+        row = CURSOR.execute(sql, (first_name, last_name, )).fetchone()
         return cls.instance_from_db(row) if row else None
 
 
