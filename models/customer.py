@@ -17,6 +17,49 @@ class Customer():
         return f'<Customer {self.id}: {self.first_name} {self.last_name}: {self.phone_number}, {self.email}>'
     
 
+    @property
+    def first_name(self):
+        return self._first_name
+    @first_name.setter
+    def first_name(self, value):
+        if isinstance(value, str) and len(value):
+            self._first_name = value
+        else:
+            raise ValueError('First Name must be a Non-empty string')
+        
+    @property
+    def last_name(self):
+        return self._last_name
+    @last_name.setter
+    def last_name(self, value):
+        if isinstance(value, str) and len(value):
+            self._last_name = value
+        else:
+            raise ValueError('Last Name should be a Non-empty string')
+        
+
+    @property
+    def phone_number(self):
+        self._phone_number
+    @phone_number.setter
+    def phone_number(self, value):
+        if isinstance(value, int):
+            self._phone_number = value
+        else:
+            raise ValueError('Phone Number should be an integer')
+
+
+    @property
+    def email(self):
+        return self._email
+    @email.setter
+    def email(self, value):
+        if isinstance(value, str) and len(value):
+            self._email = value
+        else:
+            raise ValueError('Email should be a non-epmty  string')
+
+
 
     @classmethod
     def create_table(cls):

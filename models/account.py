@@ -1,3 +1,5 @@
+from datetime import datetime
+from customer import Customer
 from __init__ import CURSOR, CONN
 
 class Account():
@@ -18,6 +20,49 @@ class Account():
             f"<Customer ID: {self.customer_id}>"
         )
     
+
+    @property
+    def type(self):
+        return self._type
+    @type.setter
+    def type(self, value):
+        if isinstance(value, str) and len(value):
+            self._type = value
+        else:
+            raise ValueError("Acoount type must be a non-empty string")
+        
+    @property
+    def balance(self):
+        return self._balance
+    @balance.setter
+    def balance(self, value):
+        if isinstance(value, float):
+            self._balance = value
+        else:
+            raise ValueError("Balance should be a float")
+        
+        
+    @property
+    def date(self):
+        return self._date   
+    @date.setter
+    def date(self, value):
+        try:
+            self._date = datetime.strptime(value, '%Y-%m-%d').date()
+        except ValueError:
+            raise ValueError("Invalid date format, expected YYYY-MM-DD")
+        
+
+    @property
+    def customer_id(self):
+        return self._customer_id
+    @customer_id.setter
+    def customer_id(self, customer_id):
+        if type(customer_id) is int and Customer.find_by_id(customer_id):
+            self._customer_id = customer_id
+        else:
+            raise ValueError("customer_id must reference a customer in the database")
+        
 
     @classmethod
     def create_table(cls):
@@ -56,12 +101,13 @@ class Account():
 
 
     @classmethod
-    def create_account(cls, type, balance, date, customer_id):
+    def create(cls, type, balance, date, customer_id):
         account = cls(type, balance, date, customer_id)
         account.save()
         return account
     
-    def update_account(self):
+
+    def update(self):
         sql = """
         UPDATE accounts
         SET type = ?, balance = ?, date = ?, customer_id = ?
@@ -71,13 +117,15 @@ class Account():
                               self.customer_id, self.id))
         CONN.commit()
 
-    def delete_account(self):
+
+    def delete(self):
         sql = """
         DELETE FROM accounts
         WHERE id = ?
         """
         CURSOR.execute(sql, (self.id,))
         CONN.commit()
+
 
     @classmethod
     def instance_from_db(cls, row):
@@ -126,15 +174,15 @@ class Account():
         return cls.instance_from_db(row) if row else None
     
     
-    def delete(self):
-        sql = """
-        DELETE FROM accounts
-        WHERE id = ?
-        """
-        CURSOR.execute(sql, (self.id,))
-        CONN.commit()
-        del type(self).all[self.id]
-        self.id = None
+    # def delete(self):
+    #     sql = """
+    #     DELETE FROM accounts
+    #     WHERE id = ?
+    #     """
+    #     CURSOR.execute(sql, (self.id,))
+    #     CONN.commit()
+    #     del type(self).all[self.id]
+    #     self.id = None
 
 
 
