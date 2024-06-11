@@ -54,7 +54,7 @@ class Transaction():
             id INTEGER PRIMARY KEY,
             type TEXT NOT NULL,
             amount INTEGER,
-            date DATE NOT NULL
+            date DATE NOT NULL)
         """
         CURSOR.execute(sql)
         CONN.commit()
@@ -72,7 +72,7 @@ class Transaction():
     def save(self):
         sql = """
             INSERT INTO transactions (type, amount, date)
-            VALUES(?, ?, ?, ?)
+            VALUES(?, ?, ?)
         """
         CURSOR.execute(sql, (self.type, self.amount, self.date))
         CONN.commit()
