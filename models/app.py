@@ -5,7 +5,14 @@ from helpers import(
     find_customer_by_id,
     create_customer,
     update_customer,
-    delete_customer
+    delete_customer,
+    list_accounts,
+    find_account_by_type,
+    find_account_by_id,
+    create_account,
+    update_account,
+    delete_account,
+    list_customer_accounts
 )
 
 def main():
@@ -26,14 +33,27 @@ def main():
             update_customer()
         elif choice == "6":
             delete_customer()
-
-
-
+        elif choice == "7":
+            list_accounts()
+        elif choice == "8":
+            find_account_by_type()
+        elif choice == "9":
+            find_account_by_id()
+        elif choice == "10":
+            create_account()
+        elif choice == "11":
+            update_account()
+        elif choice == "12":
+            delete_account()
+        elif choice == "13":
+            list_customer_accounts()
+        else:
+            print("Invalid choice")
 
 
 
 def menu():
-    print("Select an option below: ")
+    print("Select an option : ")
     print("0. Exit the program")
     print("1. List all Customers")
     print("2. Find Customer by name")
@@ -41,6 +61,13 @@ def menu():
     print("4: Create Customer")
     print("5: Update Customer")
     print("6: Delete Customer")
+    print("7. List all Accounts")
+    print("8. Find Account by type")
+    print("9. Find Account by id")
+    print("10: Create Account")
+    print("11: Update Account")
+    print("12: Delete Account")
+    print("13: List all Accounts for a Customer")
 
 
 

@@ -9,14 +9,14 @@ class Account():
     def __init__(self, type, balance, date, customer_id, id = None):
         self.id = id
         self.type = type
-        self.balance = balance
-        self.date = date
-        self.customer_id = customer_id
+        self.balance = float(balance)
+        self.date = str(date)
+        self.customer_id = int(customer_id)
 
 
     def __repr__(self):
         return (
-            f"<Account {self.id}: {self.type} {self.balance} {self.date}>" +
+            f"<Account {self.id}: {self.type} {self.balance} {self.date}>" + 
             f"<Customer ID: {self.customer_id}>"
         )
     
@@ -61,7 +61,7 @@ class Account():
         if type(customer_id) is int and Customer.find_by_id(customer_id):
             self._customer_id = customer_id
         else:
-            raise ValueError("customer_id must reference a customer in the database")
+            raise ValueError("Customer_id must reference a customer in the database")
         
 
     @classmethod
@@ -70,7 +70,7 @@ class Account():
             CREATE TABLE IF NOT EXISTS accounts(
             id INTEGER PRIMARY KEY,
             type VARCHAR(20) NOT NULL,
-            balance REAL NOT NULL,
+            balance FLOAT NOT NULL,
             date DATE NOT NULL,
             customer_id INTEGER,
             FOREIGN KEY (customer_id) REFERENCES accounts(id)
@@ -164,32 +164,12 @@ class Account():
     
 
     @classmethod
-    def find_by_name(cls, name):
+    def find_by_name(cls, type):
         sql = """
             SELECT *
             FROM accounts
-            WHERE name = ?
+            WHERE type = ?
         """
-        row = CURSOR.execute(sql, (name,)).fetchone()
-        return cls.instance_from_db(row) if row else None
+        rows = CURSOR.execute(sql, (type,)).fetchall()
+        return [cls.instance_from_db(row) for row in rows]
     
-    
-    # def delete(self):
-    #     sql = """
-    #     DELETE FROM accounts
-    #     WHERE id = ?
-    #     """
-    #     CURSOR.execute(sql, (self.id,))
-    #     CONN.commit()
-    #     del type(self).all[self.id]
-    #     self.id = None
-
-
-
-# Account1 = Account("W", 200.28, "28/4/2024" , 1, 1)
-# Account1.drop_table()
-# Account1.delete_account([2])
-# Account1.create_table()
-# Account1.save()
-# print(Account1)
-

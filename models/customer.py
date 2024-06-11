@@ -168,7 +168,7 @@ class Customer():
         sql = """
             SELECT *
             FROM customers
-            WHERE first_name = ? , last_name = ?
+            WHERE first_name = ? AND last_name = ?
         """
         row = CURSOR.execute(sql, (first_name, last_name, )).fetchone()
         return cls.instance_from_db(row) if row else None
