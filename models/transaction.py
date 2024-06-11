@@ -4,19 +4,15 @@ from __init__ import CURSOR, CONN
 
 class Transaction():
     all = {}
-    def __init__(self, type, amount, date, account_id, id = None):
+    def __init__(self, type, amount, date, id = None):
 
         self.id = id
         self.type = type
         self.amount = amount
         self.date = date
-        self.account_id = account_id
-
 
     def __repr__(self):
-        return (f"<Transaction {self.id}: {self.type}, {self.amount}, {self.date}"
-            + f"Account: {self.account_id}>"
-        )
+        return f"<Transaction {self.id}: {self.type}, {self.amount}, {self.date}"
     
     @property
     def type(self):
@@ -48,16 +44,6 @@ class Transaction():
         except ValueError:
             raise ValueError("Invalid date format, expected YYYY-MM-DD")
         
-
-    @property
-    def account_id(self):
-        return self._account_id
-    @account_id.setter
-    def account_id(self, account_id):
-        if type(account_id) is int and Account.find_by_id(account_id):
-            self._account_id = account_id
-        else:
-            raise ValueError("account_id must reference a account in the database")
         
 
     
@@ -68,9 +54,7 @@ class Transaction():
             id INTEGER PRIMARY KEY,
             type TEXT NOT NULL,
             amount INTEGER,
-            date DATE NOT NULL,
-            account_id INTEGER,
-            FOREIGN KEY (account_id) REFERENCES account(id))
+            date DATE NOT NULL
         """
         CURSOR.execute(sql)
         CONN.commit()
@@ -87,18 +71,18 @@ class Transaction():
 
     def save(self):
         sql = """
-            INSERT INTO transactions (type, amount, date, account_id)
+            INSERT INTO transactions (type, amount, date)
             VALUES(?, ?, ?, ?)
         """
-        CURSOR.execute(sql, (self.type, self.amount, self.date, self.account_id))
+        CURSOR.execute(sql, (self.type, self.amount, self.date))
         CONN.commit()
         self.id = CURSOR.lastrowid
         type(self).all[self.id] = self
 
 
     @classmethod
-    def create(cls, type, amount, date, account_id):
-        transaction = cls(type, amount, date, account_id)
+    def create(cls, type, amount, date):
+        transaction = cls(type, amount, date)
         transaction.save()
         return transaction
 
@@ -109,9 +93,8 @@ class Transaction():
             transaction.type = row[1]
             transaction.amount = row[2]
             transaction.date = row[3]
-            transaction.account_id = row[4]
         else:
-            transaction = cls(row[1], row[2], row[3], row[4])
+            transaction = cls(row[1], row[2], row[3])
             transaction.id = row[0]
             cls.all[transaction.id] = transaction
         return transaction
@@ -130,10 +113,10 @@ class Transaction():
     def update(self):
         sql = """
             UPDATE transactions
-            SET type = ?, amount = ?, date = ?, account_id = ?
+            SET type = ?, amount = ?, date = ?
             WHERE id = ?
         """
-        CURSOR.execute(sql, (self.type, self.amount, self.date, self.account_id, self.id))
+        CURSOR.execute(sql, (self.type, self.amount, self.date, self.id))
         CONN.commit()
 
 
@@ -156,4 +139,3 @@ class Transaction():
         """
         rows = CURSOR.execute(sql).fetchall()
         return [cls.instance_from_db(row) for row in rows]
-
