@@ -22,8 +22,10 @@ def store_database():
     Account1 = Account.create("Savings", 2000.00, "2024-04-11", Customer1.id)
 
     Transaction1 = Transaction.create("Withdrawal", 2,  "2024-05-14")
+    Transaction2 = Transaction.create("Deposit", 150, "2024-06-12")
 
-    AccountTransaction.create(Account1.id, Transaction1.id)
+    Account1.add_transaction(Transaction1.id)
+    Account1.add_transaction(Transaction2.id)
 
 
 store_database()

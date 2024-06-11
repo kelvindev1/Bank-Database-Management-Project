@@ -1,7 +1,5 @@
 from datetime import datetime
 from __init__ import CURSOR, CONN
-from accounttransaction import AccountTransaction
-from account import Account
 
 class Transaction():
     all = {}
@@ -9,7 +7,7 @@ class Transaction():
 
         self.id = id
         self.type = type
-        self.amount = amount
+        self.amount = int(amount)
         self.date = date
 
     def __repr__(self):
@@ -110,6 +108,16 @@ class Transaction():
         row = CURSOR.execute(sql, (id,)).fetchone()
         return cls.instance_from_db(row) if row else None
     
+    @classmethod
+    def find_by_name(cls, type):
+        sql = """
+            SELECT *
+            FROM transactions
+            WHERE type = ?
+        """
+        rows = CURSOR.execute(sql, (type,)).fetchall()
+        return [cls.instance_from_db(row) for row in rows]
+    
 
     def update(self):
         sql = """
@@ -143,6 +151,7 @@ class Transaction():
 
 
     def add_account(self, account_id):
+        from accounttransaction import AccountTransaction
         AccountTransaction.create(account_id, self.id)
 
     def get_accounts(self):
@@ -160,3 +169,5 @@ class Transaction():
         """
         CURSOR.execute(sql, (account_id, self.id))
         CONN.commit()
+
+from account import Account

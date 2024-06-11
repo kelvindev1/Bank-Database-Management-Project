@@ -17,12 +17,10 @@ def find_customer_by_name():
     customer = Customer.find_by_name(first_name, last_name)
     print(customer) if customer else print(f'Customer {first_name, last_name} not in Database')
 
-
 def find_customer_by_id():
     id_ = input("Enter the customer's ID: ")
     customer = Customer.find_by_id(id_)
     print(customer) if customer else print(f"Customer {id_} not in Database")
-
 
 def create_customer():
     first_name = input("Enter the customer's First Name: ")
@@ -47,24 +45,23 @@ def update_customer():
             customer.phone_number = phone_number
             email = input("Enter customer's email: ")
             customer.email = email
-
             customer.update()
             print(f"Success: You have update {customer}")
-
         except Exception as exc:
             print("There was a Error Updating customer: ", exc)
     else:
         print(f"Customer {id_} not in Database")
 
-
 def delete_customer():
     id_ = input("Enter the customer's ID: ")
     if customer := Customer.find_by_id(id_):
         customer.delete()
-        print(f"Customer {id_} was deleted")
+        print(f"Customer {id_} Deleted")
     else:
         print(f"Customer {id_} not in Database")
         
+
+
 
 
 def list_accounts():
@@ -82,7 +79,6 @@ def find_account_by_id():
     account = Account.find_by_id(id_)
     print(account) if account else print(f"ID: {id_} not in Database")
 
-
 def create_account():
     type = input("Enter Account Type: ")
     balance = input("Enter Top-up Amount: ")
@@ -92,10 +88,9 @@ def create_account():
         customer = Customer.find_by_id(customer_id)
         if customer:
             account = Account.create(type, balance, date, customer_id=customer_id)
-            print(f"Success: {account} created")
+            print(f"Successfully created: {account}")
     except Exception as exc:
         print("There was a Error creating Account: ", exc)
-
 
 def update_account():
     id_ = input("Enter Account's ID: ")
@@ -109,7 +104,6 @@ def update_account():
             account.date = date
             customer_id = input("Enter Account's customer ID: ")
             account.customer_id = int(customer_id)
-
             account.update()
             print(f'Success: You have updated {account}')
         except Exception as exc:
@@ -117,15 +111,13 @@ def update_account():
     else:
         print(f"Account {id} not in Database")
 
-
 def delete_account():
     id_ = input("Enter Account's ID: ")
     if account := Account.find_by_id(id_):
         account.delete()
-        print(f"Account {id_} deleted")
+        print(f"Account {id_} Deleted")
     else:
         print(f"Account {id_} not in Database")
-
 
 def list_customer_accounts():
     customer_id_ = input("Enter the Customer's ID: ")
@@ -138,3 +130,86 @@ def list_customer_accounts():
             print("No account found for this Customer")
     else:
         print(f"Customer {customer_id_} not in Database")
+
+
+
+
+def list_transactions():
+    transactions = Transaction.get_all()
+    for transaction in transactions:
+        print(transaction)
+
+# def list_account_transactions(account_id):
+#     account = Account.find_by_id(account_id)
+#     if account:
+#         transactions = account.get_transactions()
+#         for transaction in transactions:
+#             print(transaction)
+#     else:
+#         print("Account not found")
+
+# def add_transaction_to_account(account_id, transaction_id):
+#     account = Account.find_by_id(account_id)
+#     transaction = Transaction.find_by_id(transaction_id)
+#     if account and transaction:
+#         account.add_transaction(transaction_id)
+#         print(f"Transaction {transaction_id} added to account {account_id}")
+#     else:
+#         print("Invalid account or transaction ID")
+
+
+# def remove_transaction_from_account(account_id, transaction_id):
+#     account = Account.find_by_id(account_id)
+#     if account:
+#         account.remove_transaction(transaction_id)
+#         print(f"Transaction {transaction_id} removed from account {account_id}")
+#     else:
+#         print("Account not found")
+
+def find_transaction_by_type():
+    type = input("Enter Type of Transaction: ")
+    transaction = Transaction.find_by_name(type)
+    print(transaction) if transaction else print(
+        f'Transaction {type} not found')
+    
+def find_transaction_by_id():
+    id_ = input("Enter the transaction's id: ")
+    transaction = Transaction.find_by_id(id_)
+    print(transaction) if transaction else print(f'Transaction {id_} not found')
+
+
+def create_transaction():
+    type = input("Enter type of Transaction: ")
+    amount = input("Enter amount to Transact: ")
+    date = input("Enter Date(YYYY-MM-DD): ")
+    try:
+        transaction = Transaction.create(type, amount, date)
+        print(f'Successfully created {transaction}')
+    except Exception as exc:
+        print("There was an Error creating transaction: ", exc)
+
+
+def update_transaction():
+    id_ = input("Enter transaction's ID: ")
+    if transaction := Transaction.find_by_id(id_):
+        try:
+            type = input("Enter transaction's  Type: ")
+            transaction.type = type
+            amount = input("Enter transaction Amount: ")
+            transaction.amount = int(amount)
+            date = input("Enter Date(YYYY-MM-DD): ")
+            transaction.date = date 
+            transaction.update()
+            print(f"Success: You have updated {transaction}")
+        except Exception as exc:
+            print("There was a Error Updating Transaction: ", exc)
+    else:
+        print(f"Transaction {id_} not in Database")
+
+def delete_transaction():
+    id_ = input("Enter the Transaction ID: ")
+    if transaction := Transaction.find_by_id(id_):
+        transaction.delete()
+        print(f'Transaction {id_} Deleted')
+    else:
+        print(f'Transaction {id_} not in Database')

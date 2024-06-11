@@ -1,8 +1,6 @@
 from datetime import datetime
 from customer import Customer
 from __init__ import CURSOR, CONN
-from transaction import Transaction
-from accounttransaction import AccountTransaction
 
 class Account():
 
@@ -75,7 +73,7 @@ class Account():
             balance FLOAT NOT NULL,
             date DATE NOT NULL,
             customer_id INTEGER,
-            FOREIGN KEY (customer_id) REFERENCES accounts(id)
+            FOREIGN KEY (customer_id) REFERENCES customers(id)
             )
         """
         CURSOR.execute(sql)
@@ -178,6 +176,7 @@ class Account():
 
 
     def add_transaction(self, transaction_id):
+        from accounttransaction import AccountTransaction
         AccountTransaction.create(self.id, transaction_id)
 
     def get_transactions(self):
@@ -197,3 +196,4 @@ class Account():
         CONN.commit()
 
         
+from transaction import Transaction
