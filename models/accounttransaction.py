@@ -159,15 +159,6 @@ class AccountTransaction():
         CURSOR.execute(sql, (transaction_id,))
         rows = CURSOR.fetchall()
         return [cls(*row) for row in rows]
-
-    @classmethod
-    def all_records(cls):
-        sql = """
-            SELECT * FROM account_transactions
-        """
-        CURSOR.execute(sql)
-        rows = CURSOR.fetchall()
-        return [cls(*row) for row in rows]
     
     
     def __repr__(self):

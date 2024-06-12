@@ -23,7 +23,9 @@ from helpers import(
     merge_account_to_transaction,
     update_account_transaction_merge,
     find_merge_if_exists,
-    delete_account_transaction_merge
+    delete_account_transaction_merge,
+    find_transactions_merged_by_account,
+    find_accounts_merged_by_transaction
 
 )
 
@@ -81,6 +83,10 @@ def main():
             find_merge_if_exists()
         elif choice == "24":
             delete_account_transaction_merge()
+        elif choice == "25":
+            find_transactions_merged_by_account()
+        elif choice == "26":
+            find_accounts_merged_by_transaction()
         else:
             print("Invalid choice")
 
@@ -113,6 +119,8 @@ def menu():
     print("22: Update Account To Transaction Merge")
     print("23: Find If Merge Exists")
     print("24: Delete Account To Transaction Merge")
+    print("25: Find Merges For an Account")
+    print("26: Find Merges for a Transaction")
     
 
 
