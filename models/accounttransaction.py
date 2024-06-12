@@ -115,7 +115,8 @@ class AccountTransaction():
         """
         CURSOR.execute(sql, (self.account_id, self.transaction_id))
         CONN.commit()
-        del type(self).all[self.id]
+        if (self.account_id, self.transaction_id) in type(self).all:
+            del type(self).all[(self.account_id, self.transaction_id)]
 
     @classmethod
     def get(cls, account_id, transaction_id):

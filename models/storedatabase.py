@@ -28,7 +28,7 @@ def store_database():
     Account.create("MMA", 10000.67, "2022-10-10", Customer3.id)
     Account.create("Savings", 12000.01, "2024-04-20", Customer5.id)
 
-    Transaction1 = Transaction.create("Withdrawal", 2000,  "2024-05-14")
+    Transaction1 = Transaction.create("Withdraw", 2000,  "2024-05-14")
     Transaction2 = Transaction.create("Deposit", 1500, "2024-06-12")
     Transaction3 = Transaction.create("Deposit", 300, "2024-03-20")
     Transaction4 = Transaction.create("Deposit", 200, "2023-12-19")
