@@ -15,13 +15,6 @@ class Account():
         self.customer_id = int(customer_id)
 
 
-    def __repr__(self):
-        return (
-            f"<Account {self.id}: {self.type} {self.balance} {self.date}>" + 
-            f"<Customer ID: {self.customer_id}>"
-        )
-    
-
     @property
     def type(self):
         return self._type
@@ -172,4 +165,12 @@ class Account():
             WHERE type = ?
         """
         rows = CURSOR.execute(sql, (type,)).fetchall()
-        return [cls.instance_from_db(row) for row in rows]   
+        return [cls.instance_from_db(row) for row in rows]
+
+
+
+    def __repr__(self):
+        return (
+            f"<Account {self.id}: {self.type} {self.balance} {self.date}>" + 
+            f"<Customer ID: {self.customer_id}>"
+        )

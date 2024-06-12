@@ -11,8 +11,6 @@ class Transaction():
         self.amount = int(amount)
         self.date = date
 
-    def __repr__(self):
-        return f"<Transaction {self.id}: {self.type}, {self.amount}, {self.date}"
     
     @property
     def type(self):
@@ -149,3 +147,8 @@ class Transaction():
         """
         rows = CURSOR.execute(sql).fetchall()
         return [cls.instance_from_db(row) for row in rows]
+
+
+
+    def __repr__(self):
+        return f"<Transaction {self.id}: {self.type}, {self.amount}, {self.date}"

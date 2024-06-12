@@ -13,10 +13,6 @@ class Customer():
         self.email = email
 
 
-    def __repr__(self) -> str:
-        return f'<Customer {self.id}: {self.first_name} {self.last_name}: {self.phone_number}, {self.email}>'
-    
-
     @property
     def first_name(self):
         return self._first_name
@@ -186,3 +182,6 @@ class Customer():
             Account.instance_from_db(row) for row in rows
         ]
 
+
+    def __repr__(self) -> str:
+        return f'<Customer {self.id}: {self.first_name} {self.last_name}: {self.phone_number}, {self.email}>'
