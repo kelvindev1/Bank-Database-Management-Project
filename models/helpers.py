@@ -139,33 +139,6 @@ def list_transactions():
     for transaction in transactions:
         print(transaction)
 
-# def list_account_transactions(account_id):
-#     account = Account.find_by_id(account_id)
-#     if account:
-#         transactions = account.get_transactions()
-#         for transaction in transactions:
-#             print(transaction)
-#     else:
-#         print("Account not found")
-
-# def add_transaction_to_account(account_id, transaction_id):
-#     account = Account.find_by_id(account_id)
-#     transaction = Transaction.find_by_id(transaction_id)
-#     if account and transaction:
-#         account.add_transaction(transaction_id)
-#         print(f"Transaction {transaction_id} added to account {account_id}")
-#     else:
-#         print("Invalid account or transaction ID")
-
-
-# def remove_transaction_from_account(account_id, transaction_id):
-#     account = Account.find_by_id(account_id)
-#     if account:
-#         account.remove_transaction(transaction_id)
-#         print(f"Transaction {transaction_id} removed from account {account_id}")
-#     else:
-#         print("Account not found")
-
 def find_transaction_by_type():
     type = input("Enter Type of Transaction: ")
     transaction = Transaction.find_by_name(type)

@@ -23,12 +23,6 @@ class AccountTransaction():
         CONN.commit()
 
     @classmethod
-    def create(cls, account_id, transaction_id):
-        account_transaction = cls(account_id, transaction_id)
-        account_transaction.save()
-        return account_transaction
-    
-    @classmethod
     def drop_table(cls):
         sql = """
             DROP TABLE IF EXISTS account_transactions;
@@ -45,3 +39,9 @@ class AccountTransaction():
         CONN.commit()
         self.id = CURSOR.lastrowid
         type(self).all[self.id] = self
+
+    @classmethod
+    def create(cls, account_id, transaction_id):
+        account_transaction = cls(account_id, transaction_id)
+        account_transaction.save()
+        return account_transaction

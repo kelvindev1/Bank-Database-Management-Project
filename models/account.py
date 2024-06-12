@@ -1,5 +1,6 @@
 from datetime import datetime
 from customer import Customer
+# from transaction import Transaction
 from __init__ import CURSOR, CONN
 
 class Account():
@@ -171,29 +172,4 @@ class Account():
             WHERE type = ?
         """
         rows = CURSOR.execute(sql, (type,)).fetchall()
-        return [cls.instance_from_db(row) for row in rows]
-    
-
-
-    def add_transaction(self, transaction_id):
-        from accounttransaction import AccountTransaction
-        AccountTransaction.create(self.id, transaction_id)
-
-    def get_transactions(self):
-        sql = """
-            SELECT transaction_id FROM account_transactions
-            WHERE account_id = ?
-        """
-        rows = CURSOR.execute(sql, (self.id,)).fetchall()
-        return [Transaction.find_by_id(row[0]) for row in rows]
-    
-    def remove_transaction(self, transaction_id):
-        sql = """
-            DELETE FROM account_transactions
-            WHERE account_id = ? AND transaction_id = ?
-        """
-        CURSOR.execute(sql, (self.id, transaction_id))
-        CONN.commit()
-
-        
-from transaction import Transaction
+        return [cls.instance_from_db(row) for row in rows]   
