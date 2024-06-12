@@ -1,6 +1,7 @@
 from account import Account
 from customer import Customer
 from transaction import Transaction
+from accounttransaction import AccountTransaction
 
 def exit_program():
     print("Bye!")
@@ -134,6 +135,7 @@ def list_customer_accounts():
 
 
 
+
 def list_transactions():
     transactions = Transaction.get_all()
     for transaction in transactions:
@@ -184,3 +186,74 @@ def delete_transaction():
         print(f'Transaction {id_} Deleted')
     else:
         print(f'Transaction {id_} not in Database')
+
+
+
+def list_merged_account_transactions():
+    transactions = AccountTransaction.get_all()
+    for transaction in transactions:
+        print(transaction)
+
+def merge_account_to_transaction():
+    try:
+        account_id = input("Enter Account ID: ")
+        transaction_id = input("Enter Transaction ID: ")
+        account_exists = AccountTransaction.account_exists(account_id)
+        transaction_exists = AccountTransaction.transaction_exists(transaction_id)
+        if not account_exists and not transaction_exists:
+            print("Both account and transaction do not exist.")
+            return
+        elif not account_exists:
+            print("Account does not exist.")
+            return
+        elif not transaction_exists:
+            print("Transaction does not exist.")
+            return
+        account_transaction = AccountTransaction.create(account_id, transaction_id)
+        print(f"Merged successfully: {account_transaction}")
+    except ValueError:
+        print("Account ID and Transaction ID should be Numeric Values.")
+    except Exception as exc:
+        print("Error merging Accout to Transaction:", exc)
+
+def update_account_transaction():
+    try:
+        account_id = input("Enter Account ID: ")
+        transaction_id = input("Enter Transaction ID: ")
+        account_exists = AccountTransaction.account_exists(account_id)
+        transaction_exists = AccountTransaction.transaction_exists(transaction_id)
+        if not account_exists and not transaction_exists:
+            print("Both Account and Transaction don't exist.")
+            return
+        elif not account_exists:
+            print("Account does not exist.")
+            return
+        elif not transaction_exists:
+            print("Transaction does not exist.")
+            return
+        new_account_id = input("Enter the new Account ID (leave blank to keep the same): ")
+        new_transaction_id = input("Enter the new Transaction ID (leave blank to keep the same): ")
+        new_account_id = new_account_id if new_account_id else None
+        new_transaction_id = new_transaction_id if new_transaction_id else None
+        account_transaction = AccountTransaction.get(account_id, transaction_id)
+        if not account_transaction:
+            print("The specified account transaction does not exist.")
+            return
+        account_transaction.update(new_account_id, new_transaction_id)
+        print(f"Merge Updated successfully: {account_transaction}")
+    except ValueError:
+        print("Invalid input. Account ID and Transaction ID should be Numeric Values.")
+    except Exception as exc:
+        print("Error updating the Merge:", exc)
+
+
+def find_merge_if_exists():
+    account_id = input("Enter Account ID: ")
+    transaction_id = input("Enter Transaction ID: ")
+    account_transaction = AccountTransaction.get(account_id, transaction_id)
+    if account_transaction:
+        print(account_transaction)
+    else:
+        print("No Merge Exists")
+
+

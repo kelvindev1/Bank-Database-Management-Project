@@ -18,7 +18,11 @@ from helpers import(
     find_transaction_by_id,
     create_transaction,
     update_transaction,
-    delete_transaction
+    delete_transaction,
+    list_merged_account_transactions,
+    merge_account_to_transaction,
+    update_account_transaction,
+    find_merge_if_exists
 
 )
 
@@ -66,6 +70,14 @@ def main():
             update_transaction()
         elif choice == "19":
             delete_transaction()
+        elif choice == "20":
+            list_merged_account_transactions()
+        elif choice == "21":
+            merge_account_to_transaction()
+        elif choice == "22":
+            update_account_transaction()
+        elif choice == "23":
+            find_merge_if_exists()
         else:
             print("Invalid choice")
 
@@ -93,6 +105,12 @@ def menu():
     print("17: Create Transaction")
     print("18: Update Transaction")
     print("19: Delete Transaction")
+    print("20: list all Merged Accounts and Transactions")
+    print("21: Merge Account To Transaction")
+    print("22: Update Account To Transaction Merge")
+    print("23: Find If Merge Exists")
+    
+
 
 if __name__ == "__main__":
     main()

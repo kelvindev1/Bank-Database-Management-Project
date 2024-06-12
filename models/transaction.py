@@ -1,5 +1,4 @@
 from datetime import datetime
-# from account import Account
 from __init__ import CURSOR, CONN
 
 class Transaction():

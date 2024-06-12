@@ -1,6 +1,5 @@
 from datetime import datetime
 from customer import Customer
-# from transaction import Transaction
 from __init__ import CURSOR, CONN
 
 class Account():
