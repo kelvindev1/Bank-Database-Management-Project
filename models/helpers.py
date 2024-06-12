@@ -189,6 +189,8 @@ def delete_transaction():
 
 
 
+
+
 def list_merged_account_transactions():
     transactions = AccountTransaction.get_all()
     for transaction in transactions:
@@ -216,7 +218,7 @@ def merge_account_to_transaction():
     except Exception as exc:
         print("Error merging Accout to Transaction:", exc)
 
-def update_account_transaction():
+def update_account_transaction_merge():
     try:
         account_id = input("Enter Account ID: ")
         transaction_id = input("Enter Transaction ID: ")
@@ -256,4 +258,18 @@ def find_merge_if_exists():
     else:
         print("No Merge Exists")
 
+def delete_account_transaction_merge():
+    try:
+        account_id = input("Enter the Account ID: ")
+        transaction_id = input("Enter the Transaction ID: ")
+        account_transaction = AccountTransaction.get(account_id, transaction_id)
+        if not account_transaction:
+            print("The specified account transaction does not exist.")
+            return
+        account_transaction.delete()
+        print(f"Merge {account_transaction} Deleted")
+    except ValueError:
+        print("Invalid input. Account ID and Transaction ID should be Numeric Values.")
+    except Exception as exc:
+        print("Error deleting the Merge:", exc)
 
