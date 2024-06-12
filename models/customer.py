@@ -33,7 +33,6 @@ class Customer():
         else:
             raise ValueError('Last Name should be a Non-empty string')
         
-
     @property
     def phone_number(self):
         return self._phone_number
@@ -45,7 +44,6 @@ class Customer():
         except ValueError:
             raise ValueError('Phone Number should be an integer') from None
 
-
     @property
     def email(self):
         return self._email
@@ -55,8 +53,6 @@ class Customer():
             self._email = value
         else:
             raise ValueError('Email should be a non-epmty  string')
-
-
 
     @classmethod
     def create_table(cls):
@@ -72,7 +68,6 @@ class Customer():
         CURSOR.execute(sql)
         CONN.commit()
 
-
     @classmethod
     def drop_table(cls):
         sql = """
@@ -81,7 +76,6 @@ class Customer():
         CURSOR.execute(sql)
         CONN.commit()
 
-    
     def save(self):
         sql = """
             INSERT INTO customers(first_name, last_name, phone_number, email)
@@ -93,15 +87,12 @@ class Customer():
         self.id = CURSOR.lastrowid
         type(self).all[self.id] = self
 
-
-
     @classmethod
     def create(cls, first_name, last_name, phone_number, email):
         customer = cls(first_name, last_name, phone_number, email)
         customer.save()
         return customer
     
-
     def update(self):
         sql = """
             UPDATE customers
@@ -110,7 +101,6 @@ class Customer():
         """
         CURSOR.execute(sql, (self.first_name, self.last_name, self.phone_number, self.email, self.id))
         CONN.commit()
-
 
     def delete(self):
         sql = """
@@ -121,7 +111,6 @@ class Customer():
         CONN.commit()
         del type(self).all[self.id]
         self.id = None
-
 
     @classmethod
     def instance_from_db(cls, row):
@@ -137,7 +126,6 @@ class Customer():
             cls.all[customer.id] = customer
         return customer
 
-
     @classmethod
     def get_all(cls):
         sql = """
@@ -146,7 +134,6 @@ class Customer():
         """
         rows = CURSOR.execute(sql).fetchall()
         return [cls.instance_from_db(row) for row in rows]
-
 
     @classmethod
     def find_by_id(cls, id):
@@ -158,7 +145,6 @@ class Customer():
         row = CURSOR.execute(sql, (id,)).fetchone()
         return cls.instance_from_db(row) if row else None
 
-
     @classmethod
     def find_by_name(cls, first_name, last_name):
         sql = """
@@ -168,7 +154,6 @@ class Customer():
         """
         row = CURSOR.execute(sql, (first_name, last_name, )).fetchone()
         return cls.instance_from_db(row) if row else None
-
 
     def accounts(self):
         from account import Account

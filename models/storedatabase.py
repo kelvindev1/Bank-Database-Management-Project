@@ -15,8 +15,6 @@ def store_database():
     Transaction.create_table()
     AccountTransaction.create_table()
 
-
-
     Customer1 = Customer.create("Steve", "Otieno", 254705000001, "Steve@gmail.com")
     Customer2 = Customer.create("Kelvin", "Mutugi", 254759447393, "kelvin@gmail.com")
     Customer3 = Customer.create("Sarafina", "Cheche", 254712000900, "Sarafina@gmail.com")
@@ -39,7 +37,6 @@ def store_database():
     AccountTransaction.create(Account2.id, Transaction1.id)
     AccountTransaction.create(Account4.id, Transaction3.id)
     AccountTransaction.create(Account3.id, Transaction2.id)
-
 
 
 store_database()

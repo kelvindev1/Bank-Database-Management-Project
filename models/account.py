@@ -34,8 +34,7 @@ class Account():
             self._balance = value
         else:
             raise ValueError("Balance should be a float")
-        
-        
+             
     @property
     def date(self):
         return self._date   
@@ -46,7 +45,6 @@ class Account():
         except ValueError:
             raise ValueError("Invalid date format, expected YYYY-MM-DD")
         
-
     @property
     def customer_id(self):
         return self._customer_id
@@ -57,7 +55,6 @@ class Account():
         else:
             raise ValueError("Customer_id must reference a customer in the database")
         
-
     @classmethod
     def create_table(cls):
         sql = """
@@ -81,7 +78,6 @@ class Account():
         CURSOR.execute(sql)
         CONN.commit()
 
-
     def save(self):
         sql = """
         INSERT INTO accounts (type, balance, date, customer_id)
@@ -93,14 +89,12 @@ class Account():
         self.id = CURSOR.lastrowid
         type(self).all[self.id] = self
 
-
     @classmethod
     def create(cls, type, balance, date, customer_id):
         account = cls(type, balance, date, customer_id)
         account.save()
         return account
     
-
     def update(self):
         sql = """
         UPDATE accounts
@@ -111,7 +105,6 @@ class Account():
                               self.customer_id, self.id))
         CONN.commit()
 
-
     def delete(self):
         sql = """
         DELETE FROM accounts
@@ -119,7 +112,6 @@ class Account():
         """
         CURSOR.execute(sql, (self.id,))
         CONN.commit()
-
 
     @classmethod
     def instance_from_db(cls, row):
@@ -135,7 +127,6 @@ class Account():
             cls.all[account.id] = account
         return account
     
-
     @classmethod
     def get_all(cls):
         sql = """
@@ -145,7 +136,6 @@ class Account():
         rows = CURSOR.execute(sql).fetchall()
         return [cls.instance_from_db(row) for row in rows]
     
-
     @classmethod
     def find_by_id(cls, id):
         sql = """
@@ -155,7 +145,6 @@ class Account():
         """
         row = CURSOR.execute(sql, (id,)).fetchone()
         return cls.instance_from_db(row) if row else None
-    
 
     @classmethod
     def find_by_name(cls, type):
@@ -166,7 +155,6 @@ class Account():
         """
         rows = CURSOR.execute(sql, (type,)).fetchall()
         return [cls.instance_from_db(row) for row in rows]
-
 
 
     def __repr__(self):

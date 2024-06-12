@@ -150,7 +150,6 @@ def find_transaction_by_id():
     transaction = Transaction.find_by_id(id_)
     print(transaction) if transaction else print(f'Transaction {id_} not found')
 
-
 def create_transaction():
     type = input("Enter type of Transaction: ")
     amount = input("Enter amount to Transact: ")
@@ -160,7 +159,6 @@ def create_transaction():
         print(f'Successfully created {transaction}')
     except Exception as exc:
         print("There was an Error creating transaction: ", exc)
-
 
 def update_transaction():
     id_ = input("Enter transaction's ID: ")

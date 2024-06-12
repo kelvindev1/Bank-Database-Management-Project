@@ -57,7 +57,6 @@ class Transaction():
         CURSOR.execute(sql)
         CONN.commit()
 
-
     @classmethod
     def drop_table(cls):
         sql = """
@@ -65,7 +64,6 @@ class Transaction():
         """
         CURSOR.execute(sql)
         CONN.commit()
-
 
     def save(self):
         sql = """
@@ -76,7 +74,6 @@ class Transaction():
         CONN.commit()
         self.id = CURSOR.lastrowid
         type(self).all[self.id] = self
-
 
     @classmethod
     def create(cls, type, amount, date):
@@ -117,7 +114,6 @@ class Transaction():
         rows = CURSOR.execute(sql, (type,)).fetchall()
         return [cls.instance_from_db(row) for row in rows]
     
-
     def update(self):
         sql = """
             UPDATE transactions
@@ -126,7 +122,6 @@ class Transaction():
         """
         CURSOR.execute(sql, (self.type, self.amount, self.date, self.id))
         CONN.commit()
-
 
     def delete(self):
         sql = """
@@ -138,7 +133,6 @@ class Transaction():
         del type(self).all[self.id]
         self.id = None
 
-
     @classmethod
     def get_all(cls):
         sql = """
@@ -147,7 +141,6 @@ class Transaction():
         """
         rows = CURSOR.execute(sql).fetchall()
         return [cls.instance_from_db(row) for row in rows]
-
 
 
     def __repr__(self):
