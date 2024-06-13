@@ -152,8 +152,8 @@ class Customer():
             FROM customers
             WHERE first_name = ? AND last_name = ?
         """
-        row = CURSOR.execute(sql, (first_name, last_name, )).fetchone()
-        return cls.instance_from_db(row) if row else None
+        rows = CURSOR.execute(sql, (first_name, last_name, )).fetchall()
+        return [cls.instance_from_db(row) for row in rows]
 
     def accounts(self):
         from account import Account
