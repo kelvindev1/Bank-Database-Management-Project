@@ -26,17 +26,17 @@ It also has Many-To-Many-Relationship between Account Class and Transaction Clas
 
 ## MVP FEATUTES
 
-Users can create an Customer, Account, Transaction and create a Merge.
-Users can update a Customer, Account, Transaction and existing Merge.
-Users can delete a Customer, Account, Transaction and existing Merge.
-Users can list all Customers, Accounts, Transactions and existing Merges.
-Users can Search Customer by name and ID.
-Users can search Account by Type and ID.
-Users can search Transaction by Type and ID.
-Users can search if Merge exists.
-Users can List all Accounts a Customer has.
-Users can search a merge using Account ID.
-Users can search a Merge using Transaction ID
+1. Users can create an Customer, Account, Transaction and create a Merge.
+1. Users can update a Customer, Account, Transaction and existing Merge.
+1. Users can delete a Customer, Account, Transaction and existing Merge.
+1. Users can list all Customers, Accounts, Transactions and existing Merges.
+1. Users can Search Customer by name and ID.
+1. Users can search Account by Type and ID.
+1. Users can search Transaction by Type and ID.
+1. Users can search if Merge exists.
+1. Users can List all Accounts a Customer has.
+1. Users can search a merge using Account ID.
+1. Users can search a Merge using Transaction ID
 
 ## TECHNICAL EXPECTATIONS
 
