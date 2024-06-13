@@ -21,7 +21,7 @@ def store_database():
     Customer5 = Customer.create("Brandon", "Dando", 254111111111, "Brandon@gmail.com")
     Customer6 = Customer.create("Mike", "Robe", 254722000011, "Mike@gmail.com")
 
-    Account1 = Account.create("Savings", 20000.00, "2023-04-11", Customer1.id)
+    Account1 = Account.create("Savings", 20000.60, "2023-04-11", Customer1.id)
     Account2 = Account.create("MMA", 2000.52, "2024-01-10", Customer1.id)
     Account3 = Account.create("Savings", 5000.43, "2024-06-11", Customer2.id)
     Account4 = Account.create("HSA", 800.91, "2010-08-23", Customer6.id)
@@ -40,4 +40,4 @@ def store_database():
 
 
 store_database()
-print("Successfully stored the database")
+print("Successfully stored the data")

@@ -143,4 +143,4 @@ class Transaction():
 
 
     def __repr__(self):
-        return f"<Transaction {self.id}: {self.type}, {self.amount}, {self.date}"
+        return f"<Transaction {self.id}: {self.type} of {self.amount} on {self.date}>"
