@@ -2,7 +2,7 @@
 
 ## AUTHOR
 
-1. [Kelvin Mutugi](https://github.com/kelvindev1/Bank-Database-Management-Project.git)
+[Kelvin Mutugi](https://github.com/kelvindev1/Bank-Database-Management-Project.git)
 
 ## DESCRIPTION
 
